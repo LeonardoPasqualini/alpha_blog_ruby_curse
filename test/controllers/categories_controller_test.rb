@@ -1,9 +1,10 @@
-require "test_helper"
+require 'test_helper'
 
 class CategoriesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @category = Category.create(name: "Sports")
-    @admin_user = User.create(username: "johndoe", email: "johndoe@example,com", password: "password", admin: true)
+    @admin_user = User.create(username: "johndoe", email: "johndoe@example.com", 
+                              password: "password", admin: true)
   end
 
   test "should get index" do
@@ -21,6 +22,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     sign_in_as(@admin_user)
     assert_difference('Category.count', 1) do
       post categories_url, params: { category: { name: "Travel" } }
+      pp Category.all
     end
 
     assert_redirected_to category_url(Category.last)
